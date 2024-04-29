@@ -16,6 +16,7 @@ pip install -r requirements.txt
 
 ## Database Setup 
 python manage.py makemigrations
+
 python manage.py migrate
 
 ## Run the Development Server
