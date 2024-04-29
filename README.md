@@ -11,4 +11,4 @@
 - WebSockets
 - Daphne
 - Channels
-- PostgreSQL# pet-adoption-platform
+- PostgreSQL
