@@ -1,6 +1,6 @@
 ## Pet Adoption Platform
 
-This project is developed as a part of my CSE370: Database Systems course at Brac University.
+This project is developed as a part of my CSE3 70: Database Systems course at Brac University.
 
 
 ## Overview
