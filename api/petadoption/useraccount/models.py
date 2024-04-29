@@ -1,0 +1,64 @@
+from django.db import models
+
+import uuid
+
+from django.conf import settings
+
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
+
+from PIL import Image
+
+
+
+#======== CustomUserManager --> To overwrite the built-in manager =========== 
+
+class CustomUserManager(UserManager):
+    def _create_user(self, name, email, password, **extra_fields):
+        if not email:
+            raise ValueError("Email isn't valid!!!!")
+
+        email = self.normalize_email(email) #check email valid or not
+        user = self.model(email=email, name=name, **extra_fields) #user obj
+        user.set_password(password) #salting/hashting the password  
+        user.save(using=self.db) 
+        return user
+
+    def create_user(self, name=None, email=None, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(name, email, password, **extra_fields)
+    
+    def create_superuser(self, name=None, email=None, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        return self._create_user(name, email, password, **extra_fields)        
+
+
+
+#============================= actual user model ===============================
+
+class User(AbstractBaseUser, PermissionsMixin):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    email = models.EmailField(unique=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    avatar = models.ImageField(upload_to='uploads/avatars')
+
+    is_active = models.BooleanField(default=True) #can be use for email validation
+    is_superuser = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+
+    date_joined = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(blank=True, null=True)
+
+    objects = CustomUserManager()
+
+    #specifying fields for logging in
+    USERNAME_FIELD = 'email'
+    EMAIL_FIELD = 'email'
+    REQUIRED_FIELDS = ['name',]
+
+    def avatar_url(self):
+        if self.avatar:
+            return f'{settings.WEBSITE_URL}{self.avatar.url}'
+        else:
+            return ''    

@@ -1,0 +1,75 @@
+{% include 'navbar.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>All Pets</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .page-content {
+            padding: 0 15px; /* Adjust the padding as needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="page-content">
+        <h1 class="text-center mb-5">All Pets</h1>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Pet ID</th>
+                    <th scope="col">Species</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Breed</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Behaviour</th>
+                    <th scope="col">Vaccination</th>
+                    <th scope="col">Spayed/Neutered</th>
+                    <th scope="col">Medical History</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Adoption Fee</th>
+                    <th scope="col">Adoption Status</th>
+                    <th scope="col">Created By</th>
+                    <th scope="col">Created At</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pet in pets %}
+                <tr>
+                    <td><img src="{{ pet.image.url }}" alt="{{ pet.name }}" style="max-width: 100px;"></td>
+                    <td>{{ pet.id }}</td>
+                    <td>{{ pet.species }}</td>
+                    <td>{{ pet.name }}</td>
+                    <td>{{ pet.age }}</td>
+                    <td>{{ pet.gender }}</td>
+                    <td>{{ pet.breed }}</td>
+                    <td>{{ pet.size }}</td>
+                    <td>{{ pet.behaviour }}</td>
+                    <td>{{ pet.is_vaccinated }}</td>
+                    <td>{{ pet.spayed_neutered }}</td>
+                    <td>{{ pet.other_medical_history }}</td>
+                    <td>{{ pet.location }}</td>
+                    <td>{{ pet.price }}</td>
+                    <td>{{ pet.adoption_status }}</td>
+                    <td>{{ pet.useraccount }}</td>
+                    <td>{{ pet.created_at }}</td>
+                    <td></td>
+                    <td></td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
